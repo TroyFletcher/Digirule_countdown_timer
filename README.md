@@ -14,3 +14,6 @@ Change the minutes from 15 by changing the byte value in memory location 4
 1. Add blackout mode to hide the countdown so it's not so distracting while it counts down in binary. Workaround for this now is to just change the minutes and seconds memory locations to something without LED output.
 2. After blackout mode, make a button so you can peek at the time real quick without impacting the countdown timer
 3. Add zork
+
+## Bugs/Unexpected features
+1. The minute count indicates what minute is counting down, so 15:30 is actually 14 minute and 30 seconds remaining. This means that if you want to count down 30 seconds, you must set the minute timer to 1. It is possible to change this behavior, but it is not convenient.
