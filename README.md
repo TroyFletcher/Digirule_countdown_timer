@@ -30,8 +30,8 @@ Like countdown.asm, Digiruletimertest stores the minutes in the 4th memory space
 Now you can hide the countdown display if it's too distracting!
 
 ## Future versions
-~~1. Add blackout mode to hide the countdown so it's not so distracting while it counts down in binary. Workaround for this now is to just change the minutes and seconds memory locations to something without LED output.~~
-~~2. After blackout mode, make a button so you can peek at the time real quick without impacting the countdown timer~~
+1. **DONE!** Add blackout mode to hide the countdown so it's not so distracting while it counts down in binary. Workaround for this now is to just change the minutes and seconds memory locations to something without LED output.
+2. **DONE!** After blackout mode, make a button so you can peek at the time real quick without impacting the countdown timer
 3. Add zork
 4. Get some PWM so the digirule can make angry noises at you, or play the notes for "Are you keeping up with the Digirule?"
 
