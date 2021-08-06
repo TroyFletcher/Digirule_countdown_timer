@@ -6,12 +6,18 @@ buttonRegister      equ 253
 addressLEDRegister  equ 254
 dataLEDRegister     equ 255
 
-	      org 6
+	      org 0                                       
+	      byte countdown   ; make table of contents for jumps
+	      byte lookbusy
+	      byte ants
+	      byte echo
+	      byte 0           ; padding so you dont 'next' to far
+	      byte 0
 countdown     speed 0
 	      copylr 15,minutes
 	      copylr 60,seconds
               bset 2,statusRegister
-	      copylr 128,idle
+	      copylr 0,idle
 	      bset 7,statusRegister
 loop          jump checkbutton
 reducetime    speed 0xBF
@@ -37,17 +43,19 @@ draw          nop
 	      copyrr minutes,addressLEDRegister
 	      copyrr seconds,dataLEDRegister
 	      jump reducetime
-blank         copylr 0,addressLEDRegister
+blank         copylr 0,dataLEDRegister
 	      bchg 7,idle
-	      copyrr idle,dataLEDRegister
+	      copyrr idle,addressLEDRegister
 	      jump reducetime
 flash         speed 0x00
 	      copylr 0xFF,addressLEDRegister
 	      copylr 0x00,dataLEDRegister
+	      copyla 0x07     ; Copy terminal bell to accumulator
+	      speed 0x80      ; 500 ms
 flashrpt      swaprr addressLEDRegister,dataLEDRegister
-	      speed 0x80
+              comout          ; scream bells into the tty
 	      jump flashrpt
-lookbusy      speed 128
+lookbusy      speed 0x80      ; 500 ms
               bset 2,statusRegister
 lookbusyloop  randa
               copyar dataLEDRegister
@@ -61,4 +69,14 @@ antsloop      shiftrl dataLEDRegister
               xorra dataLEDRegister
               copyar dataLEDRegister
               jump antsloop 
-	      end
+echo          speed 0
+              bset 2,statusRegister
+              copylr 0,addressLEDRegister
+              copylr 0,dataLEDRegister
+echoloop      speed 0
+              comin
+              copyar dataLEDRegister
+              comin
+              copyar addressLEDRegister
+              jump echoloop
+              end
